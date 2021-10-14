@@ -29,7 +29,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')}}">
 
 </head>
 
@@ -43,7 +43,7 @@
 
         <div class="logo">
           <!-- TODO fix path later  -->
-          <a href="https://wiz.ru/"> <img src="wiz-logo-white.svg" class="img-fluid" ></a></div>
+          <a href="https://wiz.ru/"> <img src="static/wiz-logo-white.svg" class="img-fluid" ></a></div>
         <div class="title-text">
           <h1>Продаем картриджи Sakura CE285A</h1>
           <p>Бесплатная доставка при заказе  от двух штук и более</p>
@@ -65,7 +65,7 @@
         </ul>
 
         <div class="img-container"> 
-          <img  src="cartridge.png" alt="cart">
+          <img  src="static/cartridge.png" alt="cart">
         </div>
 
       </div>
