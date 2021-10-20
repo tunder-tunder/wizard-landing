@@ -1,0 +1,27 @@
+<h2>Список заказов</h2>
+
+<table>
+    <tr>
+        <th>id</th> 
+        <th>uid</th>
+        <th>name</th> 
+        <th>tele</th>
+        <th>email</th>
+        <th>company</th>
+        <th>address</th>
+        <th>comment</th>
+      </tr>
+      {% for p in posts %}
+      <tr>
+        <td>{{p.id}}</td>
+        <td>{{p.uid}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.tele}}</td>
+        <td>{{p.email}}</td>
+        <td>{{p.company}}</td>
+        <td>{{p.address}}</td>
+        <td>{{p.comment}}</td>
+      </tr>
+      {% endfor %}
+
+</table>

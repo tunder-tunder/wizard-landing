@@ -18,14 +18,13 @@ class FDataBase:
         self.__db = db
         self.__cur = db.cursor()
         
-    def getForm(self):
-        sql = ''' SELECT * FROM mainmenu '''
+    def getPosts(self):
         try: 
-            self.__cur.execute(sql)
-            res = self.__cur.fetchcall()
+            self.__cur.execute("SELECT * FROM mainmenu")
+            res = self.__cur.fetchall()
             if res: return res
-        except:
-            print("Error reading data base")
+        except sqlite3.Error as e:
+            print("Error reading data base" + str(e))
         return [] 
     
     def addPost(self, name, tele, email, company, address, comment):
@@ -38,4 +37,6 @@ class FDataBase:
             return False
         
         return True
+    
+
         

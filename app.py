@@ -41,6 +41,11 @@ def get_db():
         g.link_db = connect_db()
     return g.link_db 
 
+@app.teardown_appcontext
+def close_db(error):
+    if hasattr(g, 'link_db'):
+        g.link_db.close()
+
 
 @app.route('/#form', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
@@ -63,20 +68,19 @@ def index():
                 flash('Сообщение отправлено', category='success')
         else: 
             flash('Ошибка отправки', category='error')
-            
-        print(request.form)
-        print(res)
-        print(dbase.getForm())   
         
-    # form = dbase.getForm() 
     
     return render_template('index.html');
 
+@app.route("/admin")
+def showTable():
+    
+    db= get_db()
+    dbase = FDataBase(db)
+    
+    return render_template('admin.html', posts = dbase.getPosts())
+   
 
-@app.teardown_appcontext
-def close_db(error):
-    if hasattr(g, 'link_db'):
-        g.link_db.close()
 
 if __name__ == "__main__":
     app.run(debug=True)
