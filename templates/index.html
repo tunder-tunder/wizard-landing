@@ -191,6 +191,18 @@
      <p class="desc-text">Заполните простую форму, и наши менеджеры свяжутся с вами</p>
 
      место для ебучей формы через фласк я так и нихуя и не поняла
+     {% for cat, msg in get_flashed_messages(True) %}
+     <p class="flash {{cat}}"> {{msg}} </p>
+     {% endfor %}
+     <form action="/#form" method="post" class="form-contact">
+    <p><label>Ваше имя:*</label><input type="text" name="name" value="" required></p>
+    <p><label>Номер телефона:*</label><input type="telephone" name="tele" value="" required></p>
+    <p><label>E-mail*</label><input type="text" name="email" value="" required></p>
+    <p><label>Название компании</label><input type="text" name="company" value="" ></p>
+    <p><label>Адрес доставки</label><input type="text" name="address" value="" ></p>
+    <p><label>Комментарий к заказу</label><textarea name="comment" rows=3 cols=5></textarea>
+    <p> <input type="submit" value="сделать заказ"></p>
+    </form>
      
    </div>
 

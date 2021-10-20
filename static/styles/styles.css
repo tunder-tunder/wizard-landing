@@ -273,3 +273,15 @@ text-decoration: underline;
 .footer-text  a:active {
 text-decoration: underline;
 }
+
+.flash {
+  font-size: medium;
+}
+
+.flash.success {
+  color: aquamarine;
+}
+
+.flash.error {
+  color:crimson;
+}
