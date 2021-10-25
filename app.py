@@ -7,8 +7,11 @@ Created on Thu Oct 14 11:04:33 2021
 import sqlite3
 import os
 from flask import Flask
-from flask import render_template, request, flash, g
+from flask import render_template, request, flash, g, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, login_required
 from FDataBase import FDataBase
+from UserLogin import UserLogin
 
 
 DATABASE = '/tmp/wizsite.db'
@@ -21,6 +24,15 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config.from_object(__name__) 
 
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'wizsite.db')))
+
+login_manager = LoginManager(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    print("load_user")
+    return UserLogin().fromDB(user_id, dbase)
+
+
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
@@ -45,13 +57,18 @@ def get_db():
 def close_db(error):
     if hasattr(g, 'link_db'):
         g.link_db.close()
+        
+dbase = None 
+@app.before_request
+def before_request_func():
+    global dbase 
+    db= get_db()
+    dbase = FDataBase(db)
 
 
 @app.route('/#form', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    db= get_db()
-    dbase = FDataBase(db)
         
     if request.method == 'POST':
         
@@ -72,17 +89,29 @@ def index():
     
     return render_template('index.html');
 
-@app.route("/admin")
+
+@app.route("/admin", methods=["POST", "GET"])
+def AdminLogin():
+    if request.method == "POST":
+        user = dbase.getUserName(request.form['name'])
+        if user and check_password_hash(user['pasw'], request.form['passw']):
+            userlogin = UserLogin().create(user)
+            login_user(userlogin)
+            return redirect(url_for('showTable'))
+        
+        flash("wrong password or username", "error")
+        
+    return render_template("login.html")
+
+
+@app.route("/admin/views")
+@login_required
 def showTable():
-    
-    db= get_db()
-    dbase = FDataBase(db)
-    
     return render_template('admin.html', posts = dbase.getPosts())
    
 
-
 if __name__ == "__main__":
+    print(generate_password_hash("jemmathebestdog1"))
     app.run(debug=True)
     
  

@@ -8,3 +8,9 @@ CREATE TABLE IF NOT EXISTS mainmenu (
     address text, 
     comment text
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    id integer PRIMARY KEY AUTOINCREMENT, 
+    login text NOT NULL,
+    pasw text NOT NULL
+);
