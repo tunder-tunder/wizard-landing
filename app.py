@@ -13,6 +13,7 @@ from flask_login import LoginManager, login_user, login_required, current_user
 from flask_login import logout_user
 from FDataBase import FDataBase
 from UserLogin import UserLogin
+from forms import InfoForm
 
 
 DATABASE = '/tmp/wizsite.db'
@@ -73,24 +74,23 @@ def before_request_func():
 @app.route('/', methods=['GET', 'POST'])
 def index():
         
-    if request.method == 'POST':
-        
-        if len(request.form['name']) > 2:
-            res = dbase.addPost(request.form['name'], 
-                              request.form['tele'], 
-                              request.form['email'],
-                              request.form['company'],
-                              request.form['address'],
-                              request.form['comment'])
-            if not res:
-                flash('Ошибка отправки', category='error')
-            else:
-                flash('Сообщение отправлено', category='success')
-        else: 
+    form = InfoForm()
+    if form.validate_on_submit():
+        res = dbase.addPost(form.name.data, 
+                              form.tele.data, 
+                              form.email.data,
+                              form.company.data,
+                              form.address.data,
+                              form.comment.data)
+        if not res:
             flash('Ошибка отправки', category='error')
-        
-    
-    return render_template('index.html');
+        else:
+            flash('Сообщение отправлено', category='success')
+    else: 
+            flash('Ошибка отправки', category='error')
+            
+    return render_template('index.html', form=form)
+  
 
 
 @app.route("/admin", methods=["POST", "GET"])
