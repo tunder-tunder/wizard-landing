@@ -9,7 +9,8 @@ import os
 from flask import Flask
 from flask import render_template, request, flash, g, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, login_required
+from flask_login import LoginManager, login_user, login_required, current_user
+from flask_login import logout_user
 from FDataBase import FDataBase
 from UserLogin import UserLogin
 
@@ -26,6 +27,8 @@ app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'wizsite.db')))
 
 login_manager = LoginManager(app)
+login_manager.login_view = 'AdminLogin'
+login_manager.login_message_category = 'error'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -92,6 +95,9 @@ def index():
 
 @app.route("/admin", methods=["POST", "GET"])
 def AdminLogin():
+    if current_user.is_authenticated:
+        return redirect(url_for('showTable'))
+    
     if request.method == "POST":
         user = dbase.getUserName(request.form['name'])
         if user and check_password_hash(user['pasw'], request.form['passw']):
@@ -109,6 +115,12 @@ def AdminLogin():
 def showTable():
     return render_template('admin.html', posts = dbase.getPosts())
    
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Logged out! (* ^ ω ^)", "success")
+    return redirect(url_for('AdminLogin'))
 
 if __name__ == "__main__":
     print(generate_password_hash("jemmathebestdog1"))
