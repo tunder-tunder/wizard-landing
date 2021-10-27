@@ -10,10 +10,10 @@ from wtforms.validators import DataRequired, Email, Length
 from wtforms.fields.html5 import EmailField, TelField
 
 class InfoForm(FlaskForm):
-    name = StringField("name: ", validators=[DataRequired(), Length(min=1, max=100)])  
-    telephone = TelField("tele:", validators=[DataRequired(), Length(min=11, max=11)])
-    email = EmailField("Email: ", validators=[Email(), DataRequired()])     
-    company = StringField("company: ", validators=[Length(min=3, max=100)])  
-    address = StringField("address: ", validators=[Length(min=3, max=100)])  
-    comment = TextAreaField("comment: ")
+    name = StringField("Ваше имя: ", validators=[DataRequired("Пожалуйста, заполните это поле"), Length(min=2, max=100, message=("Имя должно быть больше двух символов"))])  
+    telephone = TelField("Телефон:", validators=[DataRequired("Пожалуйста, заполните это поле"), Length(min=11, max=11,  message=("Неверный номер телефона"))])
+    email = EmailField("Email: ", validators=[Email("Пожалуйста, проверьте правильность написания электронной почты"), DataRequired("Пожалуйста, заполните это поле")])     
+    company = StringField("Компания: ", validators=[])  
+    address = StringField("Адреc: ", validators=[Length(min=5, max=100,  message=("Адрес должен быть больше пяти символов"))])  
+    comment = TextAreaField("Комментарий: ")
     submit = SubmitField("Сделать заказ")

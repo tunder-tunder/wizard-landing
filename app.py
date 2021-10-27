@@ -77,7 +77,7 @@ def index():
     form = InfoForm()
     if form.validate_on_submit():
         res = dbase.addPost(form.name.data, 
-                              form.tele.data, 
+                              form.telephone.data, 
                               form.email.data,
                               form.company.data,
                               form.address.data,

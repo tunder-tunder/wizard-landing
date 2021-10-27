@@ -190,18 +190,25 @@
      <h1 style="color: black; margin-left: 20px;">Оформить заказ</h1>
      <p class="desc-text">Заполните простую форму, и наши менеджеры свяжутся с вами</p>
 
-     место для ебучей формы через фласк я так и нихуя и не поняла
      {% for cat, msg in get_flashed_messages(True) %}
      <p class="flash {{cat}}"> {{msg}} </p>
      {% endfor %}
      <form action="/#form" method="post" class="form-contact">
       {{ form.hidden_tag() }}
-      <p> {{ form.name.label() }} {{ form.name() }}</p>
-      <p> {{ form.telephone.label() }} {{ form.telephone() }}</p>
-      <p> {{ form.email.label() }} {{ form.email() }}</p>
-      <p> {{ form.company.label() }} {{ form.company() }}</p>
-      <p> {{ form.address.label() }} {{ form.address() }}</p>
-      <p> {{ form.comment.label() }} {{ form.comment() }}</p>
+    
+      {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+      <p>{{ field.label() }}</p>
+      {% if field.errors %}
+        {{ field(class="invalid") }}
+      <span class="invalid-feedback">
+        {% for e in field.errors %}
+        {{ e }}
+        {% endfor %}
+      </span>
+      {% else %}
+        {{ field() }}
+      {% endif %}
+    {% endfor %}  
       <p> {{ form.submit() }}</p>
     </form>
      
