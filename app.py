@@ -14,6 +14,7 @@ from flask_login import logout_user
 from FDataBase import FDataBase
 from UserLogin import UserLogin
 from forms import InfoForm
+from flask_mail import Mail, Message
 
 
 DATABASE = '/tmp/wizsite.db'
@@ -27,6 +28,14 @@ app.config.from_object(__name__)
 
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'wizsite.db')))
 
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'eblammymatthew@gmail.com'
+app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+mail = Mail(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'AdminLogin'
 login_manager.login_message_category = 'error'
@@ -85,10 +94,13 @@ def index():
         if not res:
             flash('Ошибка отправки', category='error')
         else:
+            msg = Message('Hello from the other side!', sender ='eblammymatthew@gmail.com', recipients = [str(form.email.data)])
+            msg.body = f"Hey {form.name.data}, sending you this email from my Flask app, lmk if it works"
+            mail.send(msg)
             flash('Сообщение отправлено', category='success')
     else: 
-            flash('Ошибка отправки', category='error')
-            
+            # flash('Ошибка отправки 1', category='error')
+            pass 
     return render_template('index.html', form=form)
   
 
