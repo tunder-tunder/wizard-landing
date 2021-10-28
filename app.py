@@ -94,10 +94,21 @@ def index():
         if not res:
             flash('Ошибка отправки', category='error')
         else:
-            msg = Message('Hello from the other side!', sender ='eblammymatthew@gmail.com', recipients = [str(form.email.data)])
-            msg.body = f"Hey {form.name.data}, sending you this email from my Flask app, lmk if it works"
+            msg = Message('Sakura CE285А', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [str(form.email.data)])
+            msg.body = f"Здравствуйте {form.name.data}, спасибо, что оставили заявку на нашем сайте."
+            msg.html = f"""
+            <a href="wiz.ru"><img src="https://live.staticflickr.com/65535/51635746489_ee65401673_n.jpg" width="320" height="74" alt="wiz-logo-red"></a>
+            <p>Здравствуйте, {form.name.data}, спасибо, что оставили заявку на нашем сайте. Если вы не оставляли никаких заявок, просто игнорируйте это сообщение </p>
+            """
             mail.send(msg)
             flash('Сообщение отправлено', category='success')
+            
+            
+            email_admin = 'alinkash@gmail.com'
+            msg1 = Message('Sakura CE285А новый заказ', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [email_admin])
+            msg1.body = f"Поступил новый заказ {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
+            msg1.html = f"Поступил новый заказ <br> {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
+            mail.send(msg1)
     else: 
             # flash('Ошибка отправки 1', category='error')
             pass 

@@ -65,4 +65,18 @@ class FDataBase:
             print("Error of getting data from DB" + str(e))
             
         return False
+    
+    def getUserUid(self, name):
+        try:
+            self.__cur.execute(f"SELECT uid FROM users WHERE login = '{name}' LIMIT 1")
+            res = self.__cur.fetchone()
+            if not res:
+                print("User not found")
+                return False 
+            
+            return res
+        except sqlite3.Error as e:
+            print("Error of getting data from DB" + str(e))
+            
+        return False
         
