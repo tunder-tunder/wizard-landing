@@ -146,7 +146,6 @@ def logout():
     return redirect(url_for('AdminLogin'))
 
 if __name__ == "__main__":
-    print(generate_password_hash("jemmathebestdog1"))
     app.run(debug=True)
     
  

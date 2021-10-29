@@ -13,7 +13,7 @@
     
     </style>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>Sakura CE285A</title>
   <meta name="description" content="Продажа картриджа Sakura">
@@ -43,7 +43,7 @@
 
         <div class="logo">
           <!-- TODO fix path later  -->
-          <a href="https://wiz.ru/"> <img src="static/wiz-logo-white.svg" class="img-fluid" ></a></div>
+          <a href="https://wiz.ru/"> <img src="static/wiz-logo-white.svg" class="img-fluid" style="width: 90%;" ></a></div>
         <div class="title-text">
           <h1>Продаем картриджи Sakura CE285A</h1>
           <p>Бесплатная доставка при заказе  от двух штук и более</p>
@@ -133,7 +133,7 @@
       </div>
       </div>
     </div>
-  </div> 
+  
 <!-- end of block -->
 
 <div class="block" style="margin-bottom: 0px;" id="chara">
@@ -191,7 +191,7 @@
      <p class="desc-text">Заполните простую форму, и наши менеджеры свяжутся с вами</p>
 
      {% for cat, msg in get_flashed_messages(True) %}
-     <p class="flash {{cat}}"> {{msg}} </p>
+     <div class="flash {{cat}}"> {{msg}} </div>
      {% endfor %}
      <form action="/#form" method="post" class="form-contact">
       {{ form.hidden_tag() }}
@@ -200,16 +200,19 @@
       <p>{{ field.label() }}</p>
       {% if field.errors %}
         {{ field(class="invalid") }}
-      <span class="invalid-feedback">
+      <div class="invalid-feedback">
         {% for e in field.errors %}
         {{ e }}
         {% endfor %}
-      </span>
+      </div>
       {% else %}
         {{ field() }}
       {% endif %}
     {% endfor %}  
+    <div class="button-wrapper">
       <p> {{ form.submit() }}</p>
+      <p><img src="static/star.png" style="margin-left: 5vw; margin-right: 1vw;"> </p><p>- обязательное поле</p>
+    </div>
     </form>
      
    </div>
@@ -226,6 +229,7 @@
 </div>
 
 </div>
+</div> 
   <script src="scripts.js"></script>
 
 </body>
