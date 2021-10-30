@@ -2,16 +2,7 @@
 
 <html lang="en">
 <head>
-  <style type="text/css">
 
-    @page{
-      size: auto A4 landscape;
-      margin: 3mm;
-    }
-    /* font */
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
-    
-    </style>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -30,11 +21,12 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
 
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')}}">
-
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+    </style>
 </head>
 
 <body>
-<div asscroll-container>
   <div class="wrapper">
     <!-- block for title and menu  -->
     <div class="block">
@@ -76,17 +68,17 @@
 
 
 
-    <div class="block" id="compat">
+    <div class="block mobile-margin" id="compat">
       <div class="left-block-white">
         <div class="comp-text">
           <h1 style="color: black;">Совместимо с вашим принтером</h1>
           <p class="desc-text">Универсальный картридж относится к сегменту «А» или «Премиум», что позволяет добиться такого же качества печати и количества копий, как и у оригинального продукта. Лазерные картриджи Sakura Printing созданы для безупречной работы с вашим принтером или МФУ HP и Canon. Вы можете рассчитывать на профессиональное качество комплектующих и тонера от мировых брендов из Японии, Кореи, Индии и т.д. Обеспечивают стабильное качество печати, а также экономят вашу бумагу, время и средства. </p>
         </div>
       </div>
-      <div class="right-block-red">
-    <div class="comp-text" style="color: #F2F3F4;; margin-top: 80px; margin-right: 20px;">
+    <div class="right-block-red">
+    <div class="comp-block-helper">
           <h2>Используется для моделей:</h2>
-          <div class="container" style="font-size:14px; line-height: 182%; margin-top: 20px;">
+          <div class="container">
             <ul>
               <li>HP LaserJet Pro / LJP-M1210 ser</li>
               <li>HP LaserJet Pro / LJP-M1212</li>
@@ -136,10 +128,10 @@
   
 <!-- end of block -->
 
-<div class="block" style="margin-bottom: 0px;" id="chara">
-  <div class="left-block-red" style="width: 90vw; height: 70vh">
+<div class="block mobile-margin" style="margin-bottom: 0px;" id="chara">
+  <div class="block-chara left-block-red">
     <div class="comp-text" style="color: #F2F3F4; margin-top: 30px; ">
-      <h1 style="margin-top: 9vh;">Характеристики</h1>
+      <h1  class="h1-chara-mobile" style="margin-top: 9vh;">Характеристики</h1>
       <div class="chara">
         <div><p>Цвет:<br>
           черный</p></div>
@@ -186,9 +178,9 @@
 
 <!-- end of block -->
 
-   <div class="form" id="form">
+<div class="form" id="form">
      <h1 style="color: black; margin-left: 20px;">Оформить заказ</h1>
-     <p class="desc-text">Заполните простую форму, и наши менеджеры свяжутся с вами</p>
+     <p class="desc-text form-text-mobile">Заполните простую форму, и наши менеджеры свяжутся с вами</p>
 
      {% for cat, msg in get_flashed_messages(True) %}
      <div class="flash {{cat}}"> {{msg}} </div>
@@ -211,11 +203,11 @@
     {% endfor %}  
     <div class="button-wrapper">
       <p> {{ form.submit() }}</p>
-      <p><img src="static/star.png" style="margin-left: 5vw; margin-right: 1vw;"> </p><p>- обязательное поле</p>
+      <p><img src="static/star.png" class="star"> </p><p>- обязательное поле</p>
     </div>
     </form>
      
-   </div>
+</div>
 
 </div>
 
@@ -229,7 +221,6 @@
 </div>
 
 </div>
-</div> 
   <script src="scripts.js"></script>
 
 </body>

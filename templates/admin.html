@@ -1,8 +1,12 @@
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css')}}">
+  </head>
+<body> 
 <h2>Список заказов</h2>
 
 <a href="/logout">разлогинится</a>
 
-<table>
+<table id="customers">
     <tr>
         <th>id</th> 
         <th>uid</th>
@@ -27,3 +31,5 @@
       {% endfor %}
 
 </table>
+
+</body>

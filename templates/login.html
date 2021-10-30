@@ -1,3 +1,8 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css')}}">
+    </head>
+  <body> 
+
 <div class="form" id="form">
     <h1 style="color: black; margin-left: 20px;">Admin</h1>
     {% for cat, msg in get_flashed_messages(True) %}
@@ -10,3 +15,4 @@
    </form>
     
   </div>
+  </body>

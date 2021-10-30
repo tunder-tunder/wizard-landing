@@ -30,7 +30,7 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, 'wizsite.db')))
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'eblammymatthew@gmail.com'
+app.config['MAIL_USERNAME'] = ''
 app.config['MAIL_PASSWORD'] = ''
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
@@ -94,21 +94,23 @@ def index():
         if not res:
             flash('Ошибка отправки', category='error')
         else:
-            msg = Message('Sakura CE285А', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [str(form.email.data)])
-            msg.body = f"Здравствуйте {form.name.data}, спасибо, что оставили заявку на нашем сайте."
-            msg.html = f"""
-            <a href="wiz.ru"><img src="https://live.staticflickr.com/65535/51635746489_ee65401673_n.jpg" width="320" height="74" alt="wiz-logo-red"></a>
-            <p>Здравствуйте, {form.name.data}, спасибо, что оставили заявку на нашем сайте. Если вы не оставляли никаких заявок, просто игнорируйте это сообщение </p>
-            """
-            mail.send(msg)
+            # msg = Message('Sakura CE285А', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [str(form.email.data)])
+            # msg.body = f"Здравствуйте {form.name.data}, спасибо, что оставили заявку на нашем сайте."
+            # msg.html = f"""
+            # <a href="wiz.ru"><img src="https://live.staticflickr.com/65535/51635746489_ee65401673_n.jpg" width="320" height="74" alt="wiz-logo-red"></a>
+            # <p>Здравствуйте, {form.name.data}, спасибо, что оставили заявку на нашем сайте. Если вы не оставляли никаких заявок, просто игнорируйте это сообщение </p>
+            # """
+            # mail.send(msg)
+            
+            
             flash('Сообщение отправлено', category='success')
             
             
-            email_admin = 'alinkash@gmail.com'
-            msg1 = Message('Sakura CE285А новый заказ', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [email_admin])
-            msg1.body = f"Поступил новый заказ {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
-            msg1.html = f"Поступил новый заказ <br> {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
-            mail.send(msg1)
+            # email_admin = '@gmail.com'
+            # msg1 = Message('Sakura CE285А новый заказ', sender =("Company Wizard", 'wizsakura@gmail.com'), recipients = [email_admin])
+            # msg1.body = f"Поступил новый заказ {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
+            # msg1.html = f"Поступил новый заказ <br> {form.name.data}, {form.telephone.data}, {form.email.data}, {form.company.data}, {form.address.data}, {form.comment.data}"
+            # mail.send(msg1)
     else: 
             # flash('Ошибка отправки 1', category='error')
             pass 
